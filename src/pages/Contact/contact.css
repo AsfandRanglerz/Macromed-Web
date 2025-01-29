@@ -1,0 +1,25 @@
+.image-container {
+  box-shadow: -9px 3px 6px 0px #87828226;
+}
+
+.send-btn {
+  width: 50%;
+}
+
+.send-btn-setting:disabled {
+  background-color: #033453;
+}
+
+.send-btn-setting:focus-visible {
+  background-color: #033453;
+}
+
+.send-btn-setting:active {
+  background-color: #033453 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .send-btn {
+    width: 100%;
+  }
+}
