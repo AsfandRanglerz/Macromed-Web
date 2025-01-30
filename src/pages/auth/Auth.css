@@ -1,0 +1,50 @@
+.left {
+  background: #faf8fd;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.password-input .eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 0.7rem;
+  transform: translate(0%, -50%);
+  font-size: 1.2rem;
+}
+
+.form-button {
+  background: #0068a7;
+  width: 14rem;
+  height: 2.6rem;
+}
+
+.f-size {
+  font-size: 0.8rem;
+}
+
+.link {
+  font-size: 0.9rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.error {
+  font-size: 0.8rem;
+}
+
+.forgot-link {
+  font-size: 0.8rem;
+}
+
+.forgot-link:hover {
+  color: #0068a7;
+}
+
+@media screen and (min-width: 1200px) {
+  .auth-logo {
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+  }
+}

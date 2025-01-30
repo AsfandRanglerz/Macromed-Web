@@ -1,0 +1,160 @@
+.checkout-image {
+  width: 70px;
+  height: 70px;
+}
+
+.model {
+  font-size: 0.9rem;
+}
+
+.quantity {
+  font-size: 0.8rem;
+}
+
+.subtotal {
+  width: 85%;
+}
+
+.subtotal-border {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.checkout-products {
+  width: 75%;
+}
+
+.info-form {
+  box-shadow: -9px 3px 6px 0px #87828226;
+}
+
+.input-field {
+  width: 75%;
+  box-shadow: 0 !important;
+}
+
+.input-border {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-field {
+  box-shadow: none;
+}
+.input-field:focus {
+  box-shadow: none;
+}
+
+.form-select {
+  box-shadow: none;
+}
+.form-select:focus {
+  box-shadow: none;
+}
+
+.input-border-last {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.select-radius {
+  border-radius: 0;
+}
+
+.input-field-half {
+  width: 50%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-field-half:nth-child(even) {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.two-inputs {
+  width: 75%;
+}
+
+.pay-btn {
+  background: #343145;
+  width: 75%;
+  font-size: 0.8rem;
+}
+
+.pay-btn:hover {
+  background: #605c74;
+}
+
+.pay-btn:focus {
+  background: #605c74 !important;
+}
+
+.pay-btn:focus-within {
+  background: #605c74 !important;
+}
+.pay-btn:active {
+  background: #605c74 !important;
+}
+.pay-btn:disabled {
+  background: #605c74;
+}
+
+.error {
+  font-size: 0.7rem;
+}
+
+.input-field-half:focus {
+  box-shadow: none;
+}
+
+.coupon-section {
+  width: 75%;
+}
+
+.coupon-input {
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.coupon-btn {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+}
+
+.quote-link {
+  color: var(--theme-color);
+  font-size: 0.8rem;
+}
+.quote-link:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px) {
+  .checkout-products {
+    width: 100%;
+  }
+  .subtotal {
+    width: 100%;
+  }
+  .input-field {
+    width: 100%;
+  }
+  .coupon-section {
+    width: 100%;
+  }
+  .two-inputs {
+    width: 100%;
+  }
+  .pay-btn {
+    width: 100%;
+  }
+  .info-form {
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,29 @@
+.accordion-header .accordion-button {
+  background: #0068a7;
+  color: white;
+}
+
+button:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.accordion-button::after {
+  content: "";
+  background-image: url("../../assets/down-arrow.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out, background-image 0.1s ease-in-out; /* Smooth transition */
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url("../../assets/down-arrow.png");
+  transform: rotate(-180deg);
+}
+
+.highlight {
+  background-color: rgb(236, 173, 0);
+}
