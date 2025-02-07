@@ -400,7 +400,7 @@ export default function ProductDetail() {
         <div
           ref={ref}
           style={{ height: height == "auto" ? "auto" : height + "px" }}
-          className="p-2 p-lg-5 detail-img-container overflow-hidden position-relative"
+          className="p-2 detail-img-container overflow-hidden position-relative"
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
