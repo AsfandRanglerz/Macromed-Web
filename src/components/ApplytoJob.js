@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Alert } from "react-bootstrap";
 
 function ApplyToJob({ onClose, jobId }) {
   const [formData, setFormData] = useState({
@@ -48,12 +49,12 @@ function ApplyToJob({ onClose, jobId }) {
 
       if (response.data.status) {
         toast.success("Application submitted successfully!");
+        window.alert("Application submitted successfully!");
         setTimeout(onClose, 0); 
       } else {
         toast.error("Failed to submit application.");
       }
     } catch (error) {
-      console.error("Error submitting application:", error);
       toast.error("An error occurred. Please try again.");
     } finally {
       setIsSubmitting(false); 
