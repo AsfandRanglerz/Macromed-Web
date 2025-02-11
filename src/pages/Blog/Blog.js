@@ -9,6 +9,7 @@ function Blog() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [expandedBlogs, setExpandedBlogs] = useState({}); // State to track expanded blogs
 
   useEffect(() => {
     axios
@@ -26,6 +27,20 @@ function Blog() {
         }
       });
   }, []);
+
+  const toggleReadMore = (index) => {
+    setExpandedBlogs((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
+  const truncateText = (text, charLimit) => {
+    if (text.length > charLimit) {
+      return text.substring(0, charLimit) + "...";
+    }
+    return text;
+  };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
@@ -62,7 +77,9 @@ function Blog() {
                 <span className="blog-category">{blog.category ? blog.category : 'null'}</span>
                 <span className="blog-meta">8 min read</span>
                 <div className="blog-sub-title">{blog.title}</div>
-                <div className="blog-description">{blog.description}</div>
+                <div className="blog-description">
+                  {expandedBlogs[index] ? blog.description : truncateText(blog.description, 400)}
+                </div>
                 <div className="blog-author">
                   <div className="author-avatar">
                     <img src="https://tse4.mm.bing.net/th?id=OIP._8Kty4btP3aJuyTfZTaR0wHaHk&pid=Api&P=0&h=30" alt="Author" />
@@ -72,14 +89,16 @@ function Blog() {
                     <p>
                       <FontAwesomeIcon icon={faCalendar} id="calendar_icon" />
                       <span className="blog-meta">
-                        {blog.updated_at ? blog.updated_at.split("T")[0] : "N/A"} 
+                        {blog.updated_at ? blog.updated_at.split("T")[0] : "N/A"}
                       </span>
                     </p>
                   </div>
                 </div>
               </div>
               <div className="social-icons">
-                <div className="read-more">Read More</div>
+                <div className="read-more" onClick={() => toggleReadMore(index)}>
+                  {expandedBlogs[index] ? "Show Less" : "Show More"}
+                </div>
                 <div className="icons_list">
                   <a href="#"><FontAwesomeIcon icon={faFacebookF} /> Share</a>
                   <a href="#"><FontAwesomeIcon icon={faTwitter} /> Tweet</a>
@@ -89,7 +108,7 @@ function Blog() {
             </div>
           ))
         ) : (
-          <p>No blogs available in this category.</p> 
+          <p>No blogs available in this category.</p>
         )}
       </div>
     </div>
