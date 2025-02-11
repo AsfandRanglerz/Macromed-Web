@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ApplyToJob from "../../components/ApplytoJob";
+
 function Career() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -35,12 +36,14 @@ function Career() {
     let filtered = data.filter((job) => {
       return (
         (job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          job.location.toLowerCase().includes(searchQuery.toLowerCase())) &&
+          job.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          job.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
         (jobType === "All Times" || job.employment_type === jobType)
       );
     });
     setFilteredData(filtered);
   }, [searchQuery, jobType, data]);
+
 
   return (
     <div className="mb-3 mt-3">
