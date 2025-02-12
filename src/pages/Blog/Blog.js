@@ -71,7 +71,7 @@ function Blog() {
           filteredData.map((blog, index) => (
             <div className="blog-card" key={index}>
               <div className="blog-image">
-                <img src="https://st2.depositphotos.com/1006899/8646/i/450/depositphotos_86463824-stock-photo-blog-hanging-on-strings.jpg" alt="Blog" />
+                <img src={ blog.image ? `https://macromed.com.pk/admin/public/${blog.image}`: `https://st2.depositphotos.com/1006899/8646/i/450/depositphotos_86463824-stock-photo-blog-hanging-on-strings.jpg`} alt="Blog" />
               </div>
               <div className="blog-content">
                 <span className="blog-category">{blog.category ? blog.category : 'null'}</span>
