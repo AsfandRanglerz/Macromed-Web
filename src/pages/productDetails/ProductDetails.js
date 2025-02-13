@@ -76,15 +76,18 @@ export default function ProductDetail() {
 
   const startImageInterval = (startIndex = 0) => {
     const id = setInterval(() => {
-      setOpacity(0); // Set opacity to 0 to trigger fade-out
-      setTimeout(() => {
-        setCurrentImage((pre) => {
-          let nextImageIndex =
-            (pre + 1) % productDetail.productDetails.product_images.length;
-          return nextImageIndex;
-        });
-        setOpacity(1); // Set opacity to 1 to trigger fade-in
-      }, 900); // Match this duration with the CSS transition duration
+      if (!isHovered) {
+        // Check if the image is not hovered
+        setOpacity(0); // Set opacity to 0 to trigger fade-out
+        setTimeout(() => {
+          setCurrentImage((pre) => {
+            let nextImageIndex =
+              (pre + 1) % productDetail.productDetails.product_images.length;
+            return nextImageIndex;
+          });
+          setOpacity(1); // Set opacity to 1 to trigger fade-in
+        }, 900); // Match this duration with the CSS transition duration
+      }
     }, 3600);
     setIntervalId(id);
     setCurrentImage(startIndex); // Ensure the interval starts from the correct image index
@@ -215,7 +218,6 @@ export default function ProductDetail() {
       setIsHiding(false); // Reset the hiding flag
       return;
     }
-
     setShare((prev) => (prev === id ? null : id));
   };
 
@@ -423,6 +425,7 @@ export default function ProductDetail() {
               width: "100%",
               opacity: opacity,
               transition: "opacity 0.9s ease-in-out",
+              transform: isHovered ? "scale(1.8)" : "scale(1)", // Add zoom effect
               ...zoomStyle,
             }}
             className="detail-img zoom-effect"
@@ -747,9 +750,9 @@ function TableRow(props) {
           >
             <img src={info_btn} className="w-100 info-btn pointer" alt="" />
           </span>
-          {/* {show && (
-            <div className="m-0 tool-tip small ">
-              <div className="m-0 border-0 small position-relative d-flex justify-content-between align-items-center d-inline-block h-100 w-100">
+          {show && (
+            <div className="m-0 tool-tip small">
+              <div className="m-0 border-0 small position-relative d-flex justify-content-between align-items-center">
                 <div className="border-0 m-0 px-3 col-6 small">
                   {props.tooltip_information}
                 </div>
@@ -757,16 +760,6 @@ function TableRow(props) {
                   <img src={picture} alt="" className="w-100 h-100" />
                 </div>
                 <span className="tip"></span>
-              </div>
-            </div>
-          )} */}
-          {show && (
-            <div className="m-0 tool-tip small ">
-              <div className="m-0 border-0 small position-relative d-flex justify-content-between align-items-center d-inline-block h-100 w-100">
-                <div className="border-0 m-0 px-3 py-3 small">
-                  {props.tooltip_information}
-                </div>
-                =<span className="tip"></span>
               </div>
             </div>
           )}

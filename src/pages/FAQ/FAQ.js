@@ -43,15 +43,28 @@ function FAQ() {
   const highlightText = (text, highlight) => {
     if (!highlight) return text;
     const parts = text.split(new RegExp(`(${highlight})`, "gi"));
-    return parts.map((part, index) =>
-      part.toLowerCase() === highlight.toLowerCase() ? (
-        <span key={index} className="ms-1 highlight">
-          {` ${part}`} {/* Added space on the left */}
-        </span>
-      ) : (
-        part
+    return parts
+      .map((part, index) =>
+        part.toLowerCase() === highlight.toLowerCase() ? (
+          <span key={index} className="highlight">
+            {part}
+          </span>
+        ) : (
+          part
+        )
       )
-    );
+      .reduce((acc, part, index) => {
+        if (
+          typeof part === "string" &&
+          acc.length > 0 &&
+          typeof acc[acc.length - 1] === "string"
+        ) {
+          acc[acc.length - 1] += part;
+        } else {
+          acc.push(part);
+        }
+        return acc;
+      }, []);
   };
 
   return (
@@ -62,7 +75,7 @@ function FAQ() {
         </div>
       </div>
       <div className="p-3 p-lg-5">
-        {/* <div className="row w-100 mb-4 justify-content-end">
+        <div className="row w-100 mb-4 justify-content-end">
           <div className="col-md-6 col-lg-4 d-flex align-items-center search-keywords position-relative">
             <label className="small font-500 mb-0 me-3 text-nowrap">
               SEARCH BY:
@@ -77,7 +90,7 @@ function FAQ() {
               <span className="fa-solid fa-magnifying-glass"></span>
             </button>
           </div>
-        </div> */}
+        </div>
         <div className="bg-white shadow p-2 p-lg-5">
           {data?.length !== 0 ? (
             <Accordion defaultActiveKey="0">

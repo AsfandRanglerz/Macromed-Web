@@ -135,7 +135,7 @@ function Dashboard() {
       "wishlist",
       "notifications",
       "orders",
-      // "qoutes",
+      "qoutes",
     ].map((item) => (
       <div
         key={item}

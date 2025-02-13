@@ -724,7 +724,7 @@ function Checkout() {
                       your bill
                     </p>
                   )}
-                  {/* <p
+                  <p
                     onClick={() => {
                       setProduct(cart);
                       handleShow();
@@ -732,7 +732,7 @@ function Checkout() {
                     className="mt-2 mb-0 p-0 pointer quote-link"
                   >
                     Get a quote
-                  </p> */}
+                  </p>
                 </div>
               </div>
               <button
