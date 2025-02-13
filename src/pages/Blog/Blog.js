@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
+const BASE_IMAGE_URL= process.env.REACT_APP_IMAGE_API_URL;
+
 function Blog() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -71,7 +73,7 @@ function Blog() {
           filteredData.map((blog, index) => (
             <div className="blog-card" key={index}>
               <div className="blog-image">
-                <img src={ blog.image ? `https://macromed.com.pk/admin/public/${blog.image}`: `https://st2.depositphotos.com/1006899/8646/i/450/depositphotos_86463824-stock-photo-blog-hanging-on-strings.jpg`} alt="Blog" />
+                <img src={ blog.image ? `${BASE_IMAGE_URL}${blog.image}`: `https://st2.depositphotos.com/1006899/8646/i/450/depositphotos_86463824-stock-photo-blog-hanging-on-strings.jpg`} alt="Blog" />
               </div>
               <div className="blog-content">
                 <span className="blog-category">{blog.category ? blog.category : 'null'}</span>
