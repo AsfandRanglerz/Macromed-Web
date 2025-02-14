@@ -752,9 +752,9 @@ function TableRow(props) {
           </span>
           {show && (
             <div className="m-0 tool-tip small">
-              <div className="m-0 border-0 small position-relative d-flex justify-content-between align-items-center">
-                <div className="border-0 m-0 px-3 col-6 small">
-                  {props.tooltip_information}
+              <div className="m-0 border-0 small position-relative d-flex justify-content-between">
+                <div className="border-0 m-0 d-flex align-items-center px-1 col-6 small overflow-hidden">
+                  <p className="m-0">{props.tooltip_information}</p>
                 </div>
                 <div className="border-0 m-0 col-6 h-100">
                   <img src={picture} alt="" className="w-100 h-100" />

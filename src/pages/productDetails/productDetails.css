@@ -175,7 +175,7 @@ tr td:last-child div {
 .tool-tip {
   display: inline-block;
   width: 15.5rem;
-  /* min-height: 8.5rem; */
+  height: 8rem;
   background-color: white;
   position: absolute;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -185,26 +185,13 @@ tr td:last-child div {
   line-height: 0.9rem;
   z-index: 70;
 }
-/* .tool-tip {
-  display: inline-block;
-  width: 18.5rem;
-  min-height: 8.5rem;
-  background-color: white;
-  position: absolute;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  right: calc(-18.5rem + 10px);
-  transform: translate(0%, -50%);
-  line-height: 0.9rem;
-  z-index: 99;
-} */
 .tip {
   position: absolute;
   background-color: white;
   height: 14px;
   width: 14px;
   left: 0px;
-  z-index: 10000;
+  z-index: -1;
   top: 50%;
   transform: translate(-50%, -50%) rotate(50deg);
 }
