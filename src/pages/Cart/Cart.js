@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import CartProduct from "./CartProduct";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Cart() {
   const { userData } = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart[userData?.id] || []);
   const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const total = cart.reduce((accumulator, product) => {
@@ -35,6 +36,15 @@ function Cart() {
   return (
     <>
       <div className="container-fluid mt-5 mb-5 px-3 px-xl-5 ">
+        <div
+          onClick={() => navigate(-1)}
+          className="text-decoration-none text-theme pointer"
+        >
+          <div className="d-flex align-items-center gap-2">
+            <span className="fa-solid fa-arrow-left text-theme"></span>
+            <p className="small fw-medium p-0 m-0">Back</p>
+          </div>
+        </div>
         {cart.length > 0 ? (
           <div className="row">
             <div className="col-md-8 shop-cart-p col-xl-9">
