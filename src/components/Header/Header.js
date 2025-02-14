@@ -15,6 +15,7 @@ const Header = () => {
   const [navBar, openNavBar] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const [resDropDown, setResDropDown] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
   const dropDownRef = useRef(null);
   const buttonRef = useRef(null);
   const disptach = useDispatch();
@@ -24,12 +25,34 @@ const Header = () => {
   const { login, userData } = useSelector((state) => {
     return state.user;
   });
-
   const location = useLocation();
 
   const cartData = useSelector((state) => {
     return state.cart[userData?.id] || [];
   });
+
+  useEffect(() => {
+    const total = cartData.reduce((accumulator, product) => {
+      let productTotal = product.variants.reduce((variantAcc, variant) => {
+        let variantPrice = variant.totalPrice || 0; // Default price if totalPrice is missing
+
+        // Apply product discount if available
+        if (product.discount > 0) {
+          // Apply the discount to the variant price
+          variantPrice -= (variantPrice * product.discount) / 100;
+        }
+
+        // Accumulate the discounted price of each variant
+        return variantAcc + variantPrice;
+      }, 0);
+
+      // Add the discounted product total to the accumulator
+      return accumulator + productTotal;
+    }, 0);
+
+    // Set the final total price after applying all discounts
+    setTotalPrice(total);
+  }, [cartData]); // Add cartData as a dependency
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -288,6 +311,13 @@ const Header = () => {
                   <span className="item-counter d-flex justify-content-center align-items-center">
                     {cartData.length}
                   </span>
+                  <div className="position-absolute rounded-pill px-2 text-nowrap bg-success text-white cart-price-tag">
+                    Rs{" "}
+                    {totalPrice?.toLocaleString("en-PK", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </div>
                 </div>
               </Link>
             )}
