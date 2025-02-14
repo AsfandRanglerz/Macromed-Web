@@ -82,14 +82,16 @@ const Header = () => {
         <div className="d-flex justify-content-start align-items-center gap-3">
           <div className="d-lg-none">
             <div className="d-flex gap-2 align-items-center">
-              <Link to="/dashboard?tab=wishlist">
-                <div className="d-lg-none position-relative me-2">
-                  <img src={heart2} className="header-cart pointer" alt="" />
-                  <span className="wishlist-counter d-flex justify-content-center align-items-center">
-                    {data.length}
-                  </span>
-                </div>
-              </Link>
+              {login && (
+                <Link to="/dashboard?tab=wishlist">
+                  <div className="d-lg-none position-relative me-2">
+                    <img src={heart2} className="header-cart pointer" alt="" />
+                    <span className="wishlist-counter d-flex justify-content-center align-items-center">
+                      {data.length}
+                    </span>
+                  </div>
+                </Link>
+              )}
               {login && (
                 <Link to="/cart">
                   <div className="d-lg-none position-relative me-2">
@@ -264,19 +266,21 @@ const Header = () => {
             className="d-flex align-items-start align-items-lg-center flex-column flex-lg-row"
             role="search"
           >
-            <Link to="/dashboard?tab=wishlist">
-              <div className="d-none d-lg-block position-relative me-3">
-                <img
-                  title="Wishlist"
-                  src={heart2}
-                  className="header-cart pointer"
-                  alt=""
-                />
-                <span className="wishlist-counter d-flex justify-content-center align-items-center">
-                  {data.length}
-                </span>
-              </div>
-            </Link>
+            {login && (
+              <Link to="/dashboard?tab=wishlist">
+                <div className="d-none d-lg-block position-relative me-3">
+                  <img
+                    title="Wishlist"
+                    src={heart2}
+                    className="header-cart pointer"
+                    alt=""
+                  />
+                  <span className="wishlist-counter d-flex justify-content-center align-items-center">
+                    {data.length}
+                  </span>
+                </div>
+              </Link>
+            )}
             {login && (
               <Link to="/cart">
                 <div className="d-none d-lg-block position-relative me-3">
