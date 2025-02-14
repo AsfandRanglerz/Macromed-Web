@@ -1362,45 +1362,67 @@ function SideBaar({
           heading={"MFG Country"}
           counter={sideBaarData?.countries_of_manufacture?.length}
         >
-          <div className="side-baar-select">
-            {sideBaarData?.countries_of_manufacture?.map((e, index) => {
-              return (
-                <div
-                  key={`${e.country + "asdfjkh" + index}`}
-                  className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                >
-                  <div className="text-lighter small-text font-400">
-                    {`(${e.count})`}
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.countries_of_manufacture?.length > 10
+                  ? "200px"
+                  : "auto",
+              overflowY:
+                sideBaarData?.countries_of_manufacture?.length > 10
+                  ? "scroll"
+                  : "visible",
+            }}
+          >
+            {sideBaarData?.countries_of_manufacture
+              ?.sort((a, b) => a.country.localeCompare(b.country))
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.country + "asdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label className="small pointer" htmlFor={e.country}>
+                        {e.country}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        onChange={(event) =>
+                          helper("country", e.country, event.target.checked)
+                        }
+                        checked={filters.country.includes(e.country)}
+                        id={e.country}
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="small pointer" htmlFor={e.country}>
-                      {e.country}
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      onChange={(event) =>
-                        helper("country", e.country, event.target.checked)
-                      }
-                      checked={filters.country.includes(e.country)}
-                      id={e.country}
-                      style={{ height: "1rem", width: "1rem" }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"BRAND"}
           counter={sideBaarData?.brands?.length}
         >
-          <div className="side-baar-select">
-            {sideBaarData?.brands?.map((e, index) => {
-              return (
-                <>
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight: sideBaarData?.brands?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.brands?.length > 10 ? "scroll" : "visible",
+            }}
+          >
+            {sideBaarData?.brands
+              ?.sort((a, b) => a.name.localeCompare(b.name))
+              .map((e, index) => {
+                return (
                   <div className="d-flex justify-content-between gap-3 mb-1">
                     <div
                       key={`${e.name + "13af23j64sdfjkh" + index}`}
@@ -1439,9 +1461,8 @@ function SideBaar({
                       </div>
                     )}
                   </div>
-                </>
-              );
-            })}
+                );
+              })}
           </div>
         </SideBaarAccordion>
         <SideBaarAccordion
@@ -1490,35 +1511,47 @@ function SideBaar({
           heading={"CERTIFICATION"}
           counter={sideBaarData?.certifications.length}
         >
-          <div className="side-baar-select">
-            {sideBaarData?.certifications?.map((e, index) => {
-              return (
-                <div
-                  key={`${e.name + "13aj64sdfjkh" + index}`}
-                  className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                >
-                  <div className="text-lighter small-text font-400">
-                    {`(${e.count})`}
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.certifications?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.certifications?.length > 10
+                  ? "scroll"
+                  : "visible",
+            }}
+          >
+            {sideBaarData?.certifications
+              ?.sort((a, b) => a.name.localeCompare(b.name))
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.name + "13aj64sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label className="small pointer" htmlFor={e.name}>
+                        {e.name}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.name}
+                        checked={filters.certification_id.includes(e.id)}
+                        onChange={(event) =>
+                          helper("certification_id", e.id, event.target.checked)
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="small pointer" htmlFor={e.name}>
-                      {e.name}
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      id={e.name}
-                      checked={filters.certification_id.includes(e.id)}
-                      onChange={(event) =>
-                        helper("certification_id", e.id, event.target.checked)
-                      }
-                      style={{ height: "1rem", width: "1rem" }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </SideBaarAccordion>
         <SideBaarAccordion heading={"AVAILABILITY"}>
@@ -1545,83 +1578,105 @@ function SideBaar({
           heading={"CATEGORY"}
           counter={sideBaarData?.categories?.length}
         >
-          <div className="side-baar-select ">
-            {sideBaarData?.categories?.map((e, index) => {
-              return (
-                <div className="d-flex justify-content-between gap-3 mb-1">
-                  <div
-                    key={`${e.name + "13af23j64sdfjkh" + index}`}
-                    className="d-flex flex-row justify-content-start gap-2 align-items-center"
-                  >
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        checked={filters.category_id.includes(e.id)}
-                        id={e.name}
-                        onChange={(event) =>
-                          helper("category_id", e.id, event.target.checked)
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="small pointer" htmlFor={e.name}>
-                        {e.name}
-                      </label>
-                    </div>
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
-                    </div>
-                  </div>
-                  {e?.discount_percentage && (
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.categories?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.categories?.length > 10 ? "scroll" : "visible",
+            }}
+          >
+            {sideBaarData?.categories
+              ?.sort((a, b) => a.name.localeCompare(b.name))
+              .map((e, index) => {
+                return (
+                  <div className="d-flex justify-content-between gap-3 mb-1">
                     <div
-                      className={`rounded-pill px-2 text-white d-flex align-items-center ${
-                        e?.discount_percentage <= 74 && "blue-badge"
-                      }  ${
-                        e?.discount_percentage >= 75 && "purple-badge"
-                      } discount-badge`}
+                      key={`${e.name + "13af23j64sdfjkh" + index}`}
+                      className="d-flex flex-row justify-content-start gap-2 align-items-center"
                     >
-                      <p className="p-0 m-0">{e?.discount_percentage}% off</p>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          checked={filters.category_id.includes(e.id)}
+                          id={e.name}
+                          onChange={(event) =>
+                            helper("category_id", e.id, event.target.checked)
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="small pointer" htmlFor={e.name}>
+                          {e.name}
+                        </label>
+                      </div>
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                    {e?.discount_percentage && (
+                      <div
+                        className={`rounded-pill px-2 text-white d-flex align-items-center ${
+                          e?.discount_percentage <= 74 && "blue-badge"
+                        }  ${
+                          e?.discount_percentage >= 75 && "purple-badge"
+                        } discount-badge`}
+                      >
+                        <p className="p-0 m-0">{e?.discount_percentage}% off</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"COMPANY"}
           counter={sideBaarData?.companies?.length}
         >
-          {sideBaarData?.companies?.map((e, index) => {
-            return (
-              <div
-                key={`${e.name + "13aj6gd4sdfjkh" + index}`}
-                className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-              >
-                <div className="text-lighter small-text font-400">
-                  {`(${e.count})`}
-                </div>
-                <div>
-                  <label className="small pointer" htmlFor={e.name}>
-                    {e.name}
-                  </label>
-                </div>
-                <div className="d-flex align-items-center">
-                  <input
-                    type="checkbox"
-                    id={e.name}
-                    checked={filters.company.includes(e.name)}
-                    onChange={(event) =>
-                      helper("company", e.name, event.target.checked)
-                    }
-                    style={{ height: "1rem", width: "1rem" }}
-                  />
-                </div>
-              </div>
-            );
-          })}
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.companies?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.companies?.length > 10 ? "scroll" : "visible",
+            }}
+          >
+            {sideBaarData?.companies
+              ?.sort((a, b) => a.name.localeCompare(b.name))
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.name + "13aj6gd4sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label className="small pointer" htmlFor={e.name}>
+                        {e.name}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.name}
+                        checked={filters.company.includes(e.name)}
+                        onChange={(event) =>
+                          helper("company", e.name, event.target.checked)
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </SideBaarAccordion>
       </div>
     </>
