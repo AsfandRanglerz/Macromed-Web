@@ -35,6 +35,16 @@
   height: 30vh;
 }
 
+.print-btn {
+  background-color: #0068a7;
+}
+.print-btn:hover {
+  background-color: #01558a;
+}
+.print-btn:active {
+  background-color: #01558a !important;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .shop-cart-p {
     padding-right: 0 !important;

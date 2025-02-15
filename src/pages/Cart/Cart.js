@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
 import CartProduct from "./CartProduct";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import * as XLSX from "xlsx";
+import Logo from "../../assets/logo.png";
 
 function Cart() {
   const { userData } = useSelector((state) => state.user);
@@ -33,6 +35,84 @@ function Cart() {
     setTotalPrice(total);
   }, [cart]);
 
+  const exportToExcel = () => {
+    const data = cart.flatMap((product) =>
+      product.variants.map((variant) => ({
+        "Product Name": product.productName,
+        "Product Link": {
+          f: `HYPERLINK("https://macromed.com.pk/details/${product.id}", "https://macromed.com.pk/details/${product.id}")`,
+        },
+        SKU: variant.s_k_u,
+        Quantity: variant.count,
+        "Price/Unit": variant.selling_price_per_unit_pkr,
+        "Discounted Price/Unit":
+          variant.selling_price_per_unit_pkr * (1 - product.discount / 100),
+        "Total Price": variant.totalPrice,
+        "Discounted Total Price":
+          variant.totalPrice * (1 - product.discount / 100),
+        "Brand Discount": product.brandDiscount,
+        "Category Discount": product.categoryDiscount,
+        "Product Discount": product.productDiscount,
+        "Total Discount": product.discount,
+      }))
+    );
+
+    // Convert JSON to Sheet
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    // Add headers separately to apply styling
+    const headers = [
+      [
+        "Product Name",
+        "Product Link",
+        "SKU",
+        "Quantity",
+        "Price/Unit",
+        "Discounted Price/Unit",
+        "Total Price",
+        "Discounted Total Price",
+        "Brand Discount",
+        "Category Discount",
+        "Product Discount",
+        "Total Discount",
+      ],
+    ];
+
+    XLSX.utils.sheet_add_aoa(ws, headers, { origin: "A1" });
+
+    // **Apply bold styling to the first row (headers only)**
+    headers[0].forEach((_, colIdx) => {
+      const cellRef = XLSX.utils.encode_cell({ r: 0, c: colIdx }); // First row, each column
+      if (ws[cellRef]) {
+        ws[cellRef].s = { font: { bold: true } }; // Apply bold styling
+      }
+    });
+
+    // **Set column widths**
+    ws["!cols"] = [
+      { wch: 30 }, // Product Name
+      { wch: 50 }, // Product Link (adjusted for long URLs)
+      { wch: 15 }, // SKU
+      { wch: 10 }, // Quantity
+      { wch: 12 }, // Price/Unit
+      { wch: 20 }, // Discounted Price/Unit
+      { wch: 15 }, // Total Price
+      { wch: 20 }, // Discounted Total Price
+      { wch: 15 }, // Brand Discount
+      { wch: 15 }, // Category Discount
+      { wch: 15 }, // Product Discount
+      { wch: 15 }, // Total Discount
+    ];
+
+    // Create Workbook and Save
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Cart Details");
+    XLSX.writeFile(
+      wb,
+      `${userData?.name || "User"} | Cart Details | Macromed.xlsx`
+    );
+  };
+
   return (
     <>
       <div className="container-fluid mt-5 mb-5 px-3 px-xl-5 ">
@@ -49,11 +129,20 @@ function Cart() {
           <div className="row">
             <div className="col-md-8 shop-cart-p col-xl-9">
               <div className="py-4 pe-xl-5">
-                <div className="border-1 border-bottom pb-2 mb-3 d-flex justify-content-between align-items-center">
-                  <h5 className="font-500">Shopping Cart</h5>
-                  <h5 className="font-500">
-                    {cart?.length} {cart?.length > 1 ? "Items" : "Item"}
-                  </h5>
+                <div className="border-1 border-bottom pb-3 mb-3 d-flex justify-content-between align-items-center">
+                  <h5 className="font-500 mb-0">Shopping Cart</h5>
+                  <div className="d-flex gap-3 align-items-center">
+                    <h5 className="font-500 mb-0">
+                      {cart?.length} {cart?.length > 1 ? "Items" : "Item"}
+                    </h5>
+                    <button
+                      onClick={exportToExcel}
+                      className="d-flex align-items-center px-3 gap-2 btn text-white rounded print-btn"
+                    >
+                      <span className="fa-solid fa-print"></span>
+                      <p className="m-0">Print</p>
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <div className="pt-3">
