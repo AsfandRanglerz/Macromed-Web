@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Model from "./Model";
 import { NotificationContext } from "../../Context/NotificationContext";
+import { addToCart } from "../../Redux/cartSlices";
 
 function Orders() {
   const { token, userData } = useSelector((state) => {
@@ -40,6 +41,33 @@ function Orders() {
     }
 
     setOpenOptionId((prev) => (prev === id ? null : id));
+  };
+
+  const handleReorder = (order) => {
+    order.order_item.forEach((item) => {
+      dispatch(
+        addToCart({
+          userId: order.user_id,
+          discount: Number(item.total_discount),
+          productDiscount: Number(item.product_discount),
+          brandDiscount: Number(item.brand_discount),
+          categoryDiscount: Number(item.category_discount),
+          productName: item.product_variant.products.product_name,
+          id: item.product_variant.product_id,
+          image: item.image,
+          variant: {
+            variant_id: item.varaint_id,
+            s_k_u: item.variant_number,
+            selling_price_per_unit_pkr: Number(item.price),
+            remaining_quantity: Number(item.quantity),
+            count: Number(item.quantity),
+            totalPrice: Number(item.discounted_price),
+          },
+        })
+      );
+    });
+    toast.success("Order added back to the cart successfully");
+    setOpenOptionId(null); // Close the menu after reordering
   };
 
   const [data, setData] = useState(null);
@@ -106,7 +134,7 @@ function Orders() {
   }, [openOptionId]);
 
   return (
-    <div className="bg-white row p-4 w-100 m-0 mt-3 mt-lg-5 rounded overflow-auto">
+    <div className="bg-white row p-4 w-100 m-0 mt-3 mt-lg-5 rounded">
       <Model
         show={show}
         setShow={setShow}
@@ -114,7 +142,7 @@ function Orders() {
         handleShow={handleShow}
         data={product}
       />
-      <div className="col-sm-4 p-0 px-2  mb-4">
+      <div className="col-sm-4 p-0 px-2 mb-4">
         <div className="p-3 rounded blocks">
           <div className="bg-white d-flex align-items-center justify-content-center image-block">
             <img src={Clock} alt="" />
@@ -148,7 +176,7 @@ function Orders() {
         </div>
       </div>
 
-      <div className="w-100 overflow-x-auto pb-3  table-container-dash">
+      <div className="w-100 pb-3 table-container-dash">
         <table className="table-dash w-100">
           <tr className="table-header-dash">
             <th>
@@ -160,16 +188,19 @@ function Orders() {
               </div>
             </th>
             <th>
-              <div className="white-space pe-5 py-2">Total Price</div>
+              <div className="white-space pe-3 py-2">Total Price</div>
             </th>
             <th>
-              <div className="white-space pe-5 py-2">Payment Method</div>
+              <div className="white-space pe-3 py-2">Payment Method</div>
             </th>
             <th>
-              <div className="white-space pe-5 py-2">Status</div>
+              <div className="white-space pe-3 py-2">Status</div>
             </th>
             <th>
-              <div className="white-space pe-5 py-2">Date</div>
+              <div className="white-space pe-3 py-2">Date</div>
+            </th>
+            <th>
+              <div className="white-space pe-3 py-2">Action</div>
             </th>
           </tr>
           {data?.order_details.length > 0 ? (
@@ -203,7 +234,10 @@ function Orders() {
                     </td>
 
                     <td ref={ref}>
-                      <div className="d-flex align-items-center py-2 gap-3 model-description-dash position-relative ps-2 pe-2 table-row-color">
+                      <div
+                        style={{ padding: "12px" }}
+                        className="d-flex align-items-center gap-3 model-description-dash position-relative ps-2 pe-2 table-row-color"
+                      >
                         <p className="p-0 m-0 small">
                           {variantNumbers.length > 15
                             ? variantNumbers.slice(0, 15) + "..."
@@ -266,6 +300,30 @@ function Orders() {
                           month: "2-digit",
                           year: "numeric",
                         })}
+                      </div>
+                    </td>
+                    <td>
+                      <div
+                        style={{ padding: "15px" }}
+                        className="d-flex align-items-center gap-3 h-100 position-relative ps-2 pe-2 table-row-color"
+                      >
+                        <span
+                          className="fa-solid fa-ellipsis-vertical pointer"
+                          onClick={() => toggleOption(e.order_id)}
+                        ></span>
+                        {openOptionId === e.order_id && (
+                          <div
+                            ref={optionRef}
+                            className="dropdown-menu show action-menu p-0"
+                          >
+                            <button
+                              className="dropdown-item py-2 redorder-link"
+                              onClick={() => handleReorder(e)}
+                            >
+                              Reorder
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </td>
                   </tr>

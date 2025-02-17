@@ -78,14 +78,14 @@ function CartProduct({ cart, userId }) {
                                   })
                                 );
                               }}
-                              disabled={v.count == 1}
+                              disabled={v.count === 1}
                               className="px-2 rounded border-0 sign-bg"
                             >
                               -
                             </button>
                             <span>{v.count}</span>
                             <button
-                              disabled={v.count == v.remaining_quantity}
+                              disabled={v.count === v.remaining_quantity}
                               onClick={() => {
                                 dispatch(
                                   increaseCounter({

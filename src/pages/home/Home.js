@@ -806,7 +806,7 @@ function Product({
                   <Link
                     target="_blank"
                     style={{ textDecoration: "none" }}
-                    to={`/details/${data.id}`}
+                    to={`/details/${data?.id}`}
                   >
                     {data?.short_name} - {data?.product_code}
                   </Link>
@@ -891,6 +891,9 @@ function Product({
                   </div>
                 </div>
               </div>
+              <p className="small mt-2 text-lighter mb-0">
+                <span className="small">{data?.short_description}</span>
+              </p>
             </div>
             <ProductShowCase
               thumbNale={data?.thumbnail_image}
@@ -900,9 +903,6 @@ function Product({
               check={check}
             />
           </div>
-          <p className="small pe-lg-5 me-lg-5 text-lighter mb-0">
-            <span className="small">{data?.short_description}</span>
-          </p>
         </div>
       </div>
     </div>

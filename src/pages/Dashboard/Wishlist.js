@@ -23,7 +23,7 @@ function Wishlist() {
             <Product
               setHeight={setHeight}
               index={index}
-              data={e.products}
+              data={e?.products}
               key={`0,82w${index}jkad`}
               setCompareCounter={setCompareCounter}
               check={check}
@@ -33,7 +33,7 @@ function Wishlist() {
         );
       })}
 
-      {data.length == 0 && (
+      {data?.length == 0 && (
         <p className="text-center text-grey2 small p-0 m-0">
           No products added to wishlist
         </p>
