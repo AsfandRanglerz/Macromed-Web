@@ -175,7 +175,6 @@ tr td:last-child div {
 .tool-tip {
   display: inline-block;
   width: 15.5rem;
-  height: 8rem;
   background-color: white;
   position: absolute;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

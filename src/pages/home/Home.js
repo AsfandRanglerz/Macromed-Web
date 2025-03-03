@@ -71,6 +71,10 @@ export default function Home() {
     key_words: "",
     page: 1,
     price_order: "",
+    product_class: [],
+    product_use_status: [],
+    warranty_period: [],
+    product_condition: [],
   });
   const [filters1, setFilters1] = useState({
     company: [],
@@ -85,6 +89,10 @@ export default function Home() {
     page: 1,
     suggested_word: word,
     price_order: "",
+    product_class: [],
+    product_use_status: [],
+    warranty_period: [],
+    product_condition: [],
   });
   const [page, setPage] = useState(1);
 
@@ -97,13 +105,19 @@ export default function Home() {
         e === "company" ||
         e === "category_id" ||
         e === "country" ||
+        e === "product_class" ||
+        e === "product_use_tatus" ||
+        e === "warranty_period" ||
+        e === "product_condition" ||
         e === "brand_id" ||
         e === "certification_id"
       ) {
-        if (filters2[e].length === 0) {
-          delete filters2[e];
-        } else {
-          filters2[e] = filters2[e].join(",");
+        if (Array.isArray(filters2[e])) {
+          if (filters2[e].length === 0) {
+            delete filters2[e];
+          } else {
+            filters2[e] = filters2[e].join(",");
+          }
         }
       } else if (!filters2[e] || filters2[e] === "") {
         delete filters2[e];
@@ -143,11 +157,26 @@ export default function Home() {
   };
 
   const { data: sideBaarData, isLoading } = useQuery(
-    "sidebarData",
-    async () => {
-      let response = await axios.get(
-        `${process.env.REACT_APP_API_URL}api/getDropDownData`
+    ["sidebarData", filters1],
+    async ({ queryKey }) => {
+      const [, filters1] = queryKey;
+
+      // Filter out empty or default values
+      const filteredFilters = Object.fromEntries(
+        Object.entries(filters1).filter(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value.length > 0;
+          }
+          return value !== "" && value !== false && value !== null;
+        })
       );
+
+      const queryString = new URLSearchParams(filteredFilters).toString();
+      console.log(queryString);
+      const url = `${process.env.REACT_APP_API_URL}api/getDropDownData?${queryString}`;
+
+      let response = await axios.get(url);
+      console.log(response);
 
       return response.data.data;
     },
@@ -1057,6 +1086,60 @@ function ShowFilters({
               </span>{" "}
             </button>
           );
+        } else if (e == "product_class") {
+          return (
+            <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+              <span>{e == "product_class" ? "Product Class" : ""}</span>(
+              {filters[e].length})
+              <span>
+                <span
+                  onClick={() => changeFilter([], e)}
+                  className="fa-solid fa-xmark text-lighter"
+                ></span>
+              </span>{" "}
+            </button>
+          );
+        } else if (e == "product_use_status") {
+          return (
+            <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+              <span>
+                {e == "product_use_status" ? "Product Use Status" : ""}
+              </span>
+              ({filters[e].length})
+              <span>
+                <span
+                  onClick={() => changeFilter([], e)}
+                  className="fa-solid fa-xmark text-lighter"
+                ></span>
+              </span>{" "}
+            </button>
+          );
+        } else if (e == "product_condition") {
+          return (
+            <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+              <span>{e == "product_condition" ? "Product Condition" : ""}</span>
+              ({filters[e].length})
+              <span>
+                <span
+                  onClick={() => changeFilter([], e)}
+                  className="fa-solid fa-xmark text-lighter"
+                ></span>
+              </span>{" "}
+            </button>
+          );
+        } else if (e == "warranty_period") {
+          return (
+            <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+              <span>{e == "warranty_period" ? "Warranty Period" : ""}</span>(
+              {filters[e].length})
+              <span>
+                <span
+                  onClick={() => changeFilter([], e)}
+                  className="fa-solid fa-xmark text-lighter"
+                ></span>
+              </span>{" "}
+            </button>
+          );
         }
       })}
 
@@ -1669,6 +1752,224 @@ function SideBaar({
                         checked={filters.company.includes(e.name)}
                         onChange={(event) =>
                           helper("company", e.name, event.target.checked)
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </SideBaarAccordion>
+        <SideBaarAccordion
+          heading={"PRODUCT CLASS"}
+          counter={sideBaarData?.productClass?.length}
+        >
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.productClass?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.productClass?.length > 10 ? "scroll" : "visible",
+            }}
+          >
+            {sideBaarData?.productClass
+              ?.sort((a, b) => a.productClass.localeCompare(b.productClass))
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.productClass + "13aj6gd4sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label className="small pointer" htmlFor={e.productClass}>
+                        {e.productClass}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.productClass}
+                        checked={filters.product_class.includes(e.productClass)}
+                        onChange={(event) =>
+                          helper(
+                            "product_class",
+                            e.productClass,
+                            event.target.checked
+                          )
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </SideBaarAccordion>
+        <SideBaarAccordion
+          heading={"PRODUCT USE STATUS"}
+          counter={sideBaarData?.productUseStatus?.length}
+        >
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.productUseStatus?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.productUseStatus?.length > 10
+                  ? "scroll"
+                  : "visible",
+            }}
+          >
+            {sideBaarData?.productUseStatus
+              ?.sort((a, b) => a.numberOfUses.localeCompare(b.numberOfUses))
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.productUseStatus + "13aj6gd4sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label className="small pointer" htmlFor={e.numberOfUses}>
+                        {e.numberOfUses}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.numberOfUses}
+                        checked={filters.product_use_status.includes(
+                          e.numberOfUses
+                        )}
+                        onChange={(event) =>
+                          helper(
+                            "product_use_status",
+                            e.numberOfUses,
+                            event.target.checked
+                          )
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </SideBaarAccordion>
+        <SideBaarAccordion
+          heading={"PRODUCT CONDITION"}
+          counter={sideBaarData?.productCondition?.length}
+        >
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.productCondition?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.productCondition?.length > 10
+                  ? "scroll"
+                  : "visible",
+            }}
+          >
+            {sideBaarData?.productCondition
+              ?.sort((a, b) =>
+                a.productCondition.localeCompare(b.productCondition)
+              )
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.productCondition + "13aj6gd4sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label
+                        className="small pointer"
+                        htmlFor={e.productCondition}
+                      >
+                        {e.productCondition}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.productCondition}
+                        checked={filters.product_condition.includes(
+                          e.productCondition
+                        )}
+                        onChange={(event) =>
+                          helper(
+                            "product_condition",
+                            e.productCondition,
+                            event.target.checked
+                          )
+                        }
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </SideBaarAccordion>
+        <SideBaarAccordion
+          heading={"WARRANTY PERIOD"}
+          counter={sideBaarData?.warrantyPeriod?.length}
+        >
+          <div
+            className="side-baar-select"
+            style={{
+              maxHeight:
+                sideBaarData?.warrantyPeriod?.length > 10 ? "200px" : "auto",
+              overflowY:
+                sideBaarData?.warrantyPeriod?.length > 10
+                  ? "scroll"
+                  : "visible",
+            }}
+          >
+            {sideBaarData?.warrantyPeriod
+              ?.sort((a, b) =>
+                a?.warrantyPeriod?.localeCompare(b?.warrantyPeriod)
+              )
+              .map((e, index) => {
+                return (
+                  <div
+                    key={`${e.warrantyPeriod + "13aj6gd4sdfjkh" + index}`}
+                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                  >
+                    <div className="text-lighter small-text font-400">
+                      {`(${e.count})`}
+                    </div>
+                    <div>
+                      <label
+                        className="small pointer"
+                        htmlFor={e.warrantyPeriod}
+                      >
+                        {e.warrantyPeriod}
+                      </label>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <input
+                        type="checkbox"
+                        id={e.warrantyPeriod}
+                        checked={filters.warranty_period.includes(
+                          e.warrantyPeriod
+                        )}
+                        onChange={(event) =>
+                          helper(
+                            "warranty_period",
+                            e.warrantyPeriod,
+                            event.target.checked
+                          )
                         }
                         style={{ height: "1rem", width: "1rem" }}
                       />

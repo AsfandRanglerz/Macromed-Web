@@ -722,6 +722,8 @@ function TableRow(props) {
     }
   }, [params.id]);
 
+  console.log(props);
+
   return (
     <tr className="table-row">
       <td>
@@ -756,8 +758,16 @@ function TableRow(props) {
                 <div className="border-0 m-0 d-flex align-items-center px-1 col-6 small overflow-hidden">
                   <p className="m-0">{props.tooltip_information}</p>
                 </div>
-                <div className="border-0 m-0 col-6 h-100">
-                  <img src={picture} alt="" className="w-100 h-100" />
+                <div className="border-0 m-0 col-6">
+                  <img
+                    src={
+                      process.env.REACT_APP_API_URL +
+                      "/public/admin/assets/images/products/" +
+                      props?.image
+                    }
+                    alt=""
+                    className="w-100 h-100"
+                  />
                 </div>
                 <span className="tip"></span>
               </div>
