@@ -148,6 +148,7 @@ export default function Home() {
         return;
       }
 
+      console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.message == "Network Error") {
@@ -172,11 +173,9 @@ export default function Home() {
       );
 
       const queryString = new URLSearchParams(filteredFilters).toString();
-      console.log(queryString);
       const url = `${process.env.REACT_APP_API_URL}api/getDropDownData?${queryString}`;
 
       let response = await axios.get(url);
-      console.log(response);
 
       return response.data.data;
     },
