@@ -24,6 +24,7 @@ import {
 } from "react-share";
 import { WishlistContext } from "../../Context/WishlistContext";
 import DiscountCoupon from "../../components/discountCoupon/DiscountCoupon";
+
 export default function Home() {
   const [sort1, setSort1] = useState(false);
   const [sort2, setSort2] = useState(false);
