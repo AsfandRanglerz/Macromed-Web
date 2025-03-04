@@ -759,15 +759,26 @@ function TableRow(props) {
                   <p className="m-0">{props.tooltip_information}</p>
                 </div>
                 <div className="border-0 m-0 col-6">
-                  <img
-                    src={
-                      process.env.REACT_APP_API_URL +
-                      "/public/admin/assets/images/products/" +
-                      props?.image
-                    }
-                    alt=""
-                    className="w-100 h-100"
-                  />
+                  {props?.image ? (
+                    <img
+                      src={
+                        process.env.REACT_APP_API_URL +
+                        "/public/admin/assets/images/products/" +
+                        props?.image
+                      }
+                      alt=""
+                      className="w-100 h-100"
+                    />
+                  ) : (
+                    <img
+                      src={
+                        process.env.REACT_APP_API_URL +
+                        "public/admin/assets/images/products/product.png"
+                      }
+                      alt=""
+                      className="w-100 h-100"
+                    />
+                  )}
                 </div>
                 <span className="tip"></span>
               </div>
