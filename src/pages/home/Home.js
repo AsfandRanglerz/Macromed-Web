@@ -976,14 +976,16 @@ function ShowFilters({
       {Object.keys(filters).map((e) => {
         if (filters[e] == "" || !filters[e]) {
           return "";
-        } else if (e == "max_price" || e == "min_price" || e == "page") {
+        } else if (e == "page") {
           return "";
         } else if (
           e == "company" ||
           e == "category_id" ||
           e == "country" ||
           e == "brand_id" ||
-          e == "certification_id"
+          e == "certification_id" ||
+          e == "max_price" ||
+          e == "min_price"
         ) {
           if (filters[e].length > 0) {
             if (e == "category_id") {
@@ -1038,7 +1040,31 @@ function ShowFilters({
                   {filters[e].length})
                   <span>
                     <span
-                      onClick={() => changeFilter([], e)}
+                      onClick={() => changeFilter(null, e)}
+                      className="fa-solid fa-xmark text-lighter"
+                    ></span>
+                  </span>{" "}
+                </button>
+              );
+            } else if (e == "min_price") {
+              return (
+                <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+                  <span>Minimum Price Range</span>
+                  <span>
+                    <span
+                      onClick={() => changeFilter("", e)}
+                      className="fa-solid fa-xmark text-lighter"
+                    ></span>
+                  </span>{" "}
+                </button>
+              );
+            } else if (e == "max_price" || e == "min_price") {
+              return (
+                <button className="filter-btn py-1 px-2 rounded-1 small d-flex gap-2 align-items-center text-grey">
+                  <span>Maximum Price Range</span>
+                  <span>
+                    <span
+                      onClick={() => changeFilter("", e)}
                       className="fa-solid fa-xmark text-lighter"
                     ></span>
                   </span>{" "}
