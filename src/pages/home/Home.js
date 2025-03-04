@@ -1443,6 +1443,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"MFG Country"}
           counter={sideBaarData?.countries_of_manufacture?.length}
+          openAcc={filters.country.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1492,6 +1493,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"BRAND"}
           counter={sideBaarData?.brands?.length}
+          openAcc={filters.brand_id.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1550,6 +1552,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"PRICE RANGE"}
           counter={`${filters.min_price} - ${filters.max_price}`}
+          openAcc={filters.min_price > 0}
         >
           <div className="side-baar-select">
             <div className="row">
@@ -1592,6 +1595,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"CERTIFICATION"}
           counter={sideBaarData?.certifications.length}
+          openAcc={filters.certification_id.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1636,7 +1640,10 @@ function SideBaar({
               })}
           </div>
         </SideBaarAccordion>
-        <SideBaarAccordion heading={"AVAILABILITY"}>
+        <SideBaarAccordion
+          heading={"AVAILABILITY"}
+          openAcc={filters.available_product}
+        >
           <div className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center">
             <div>
               <label className="small pointer" htmlFor="checkme">
@@ -1659,6 +1666,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"CATEGORY"}
           counter={sideBaarData?.categories?.length}
+          openAcc={filters.category_id.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1718,6 +1726,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"COMPANY"}
           counter={sideBaarData?.companies?.length}
+          openAcc={filters.company.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1763,6 +1772,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"PRODUCT CLASS"}
           counter={sideBaarData?.productClass?.length}
+          openAcc={filters.product_class.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1812,6 +1822,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"PRODUCT USE STATUS"}
           counter={sideBaarData?.productUseStatus?.length}
+          openAcc={filters.product_use_status.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1865,6 +1876,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"PRODUCT CONDITION"}
           counter={sideBaarData?.productCondition?.length}
+          openAcc={filters.product_condition.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1923,6 +1935,7 @@ function SideBaar({
         <SideBaarAccordion
           heading={"WARRANTY PERIOD"}
           counter={sideBaarData?.warrantyPeriod?.length}
+          openAcc={filters.warranty_period.length > 0}
         >
           <div
             className="side-baar-select"
@@ -1982,9 +1995,10 @@ function SideBaar({
     </>
   );
 }
-function SideBaarAccordion({ heading, children, counter = null }) {
+function SideBaarAccordion({ heading, children, counter = null, openAcc }) {
   const [height, setHeight] = useState(0);
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const ref = useRef();
   useEffect(() => {
     if (ref.current) {
@@ -1993,6 +2007,22 @@ function SideBaarAccordion({ heading, children, counter = null }) {
       });
     }
   }, [ref.current, children]);
+
+  useEffect(() => {
+    if (openAcc) {
+      setOpen(true);
+      setShow(true);
+    } else {
+      setOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (show === false) {
+      setOpen(false);
+    }
+  }, [show, setShow]);
+
   return (
     <>
       <div
@@ -2013,7 +2043,7 @@ function SideBaarAccordion({ heading, children, counter = null }) {
       </div>
       <div
         ref={ref}
-        style={{ height: show === true ? height : 0 }}
+        style={{ height: show || open ? height : 0 }}
         className="sidbaar-accordion-body"
       >
         {children}
