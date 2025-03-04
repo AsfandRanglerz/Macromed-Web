@@ -1341,11 +1341,22 @@ function ProductShowCase({
           </span>
         </div>
         <div>
-          <img
-            className="product-image rounded-3 mb-2"
-            src={process.env.REACT_APP_API_URL + thumbNale}
-            alt=""
-          />
+          {thumbNale ? (
+            <img
+              className="product-image rounded-3 mb-2"
+              src={process.env.REACT_APP_API_URL + thumbNale}
+              alt=""
+            />
+          ) : (
+            <img
+              className="product-image rounded-3 mb-2"
+              src={
+                process.env.REACT_APP_API_URL +
+                "admin/public/admin/assets/images/product.png"
+              }
+              alt=""
+            />
+          )}
         </div>
       </div>
     </div>
