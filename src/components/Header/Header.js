@@ -167,7 +167,8 @@ const Header = () => {
                           onClick={() => {
                             toast.success("User logout successfully");
                             disptach(logoutUser());
-                            setResDropDown(false); // Close dropdown after logout
+                            setDropDown(false);
+                            setResDropDown(false);
                           }}
                           className="d-flex align-items-center gap-3 py-2 px-2 w-100 border-0 bg-white text-nowrap select-option"
                         >
@@ -377,6 +378,8 @@ const Header = () => {
                         onClick={() => {
                           toast.success("User logout successfully");
                           disptach(logoutUser());
+                          setDropDown(false);
+                          setResDropDown(false);
                         }}
                         className="d-flex align-items-center gap-3 py-2 px-2 w-100 border-0 bg-white text-nowrap select-option"
                       >
