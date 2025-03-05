@@ -694,11 +694,23 @@ function Card({
               </div>
             )}
             <div>
-              <img
-                className="slider-img w-100"
-                src={`${process.env.REACT_APP_API_URL}${thumbnail_image}`}
-                alt=""
-              />
+              {thumbnail_image ? (
+                <img
+                  className="slider-img w-100"
+                  src={`${process.env.REACT_APP_API_URL}${thumbnail_image}`}
+                  alt=""
+                />
+              ) : (
+                <img
+                  className="slider-img w-100"
+                  src={
+                    process.env.REACT_APP_API_URL +
+                    "public/admin/assets/images/products/product.png"
+                  }
+                  alt=""
+                />
+              )}
+
               <div className="p-2">
                 <h6 className="small font-700">
                   <span className="small">{short_name}</span>

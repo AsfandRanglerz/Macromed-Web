@@ -419,22 +419,39 @@ export default function ProductDetail() {
               </p>
             </div>
           )}
-          <img
-            style={{
-              height: "100%",
-              width: "100%",
-              opacity: opacity,
-              transition: "opacity 0.9s ease-in-out",
-              transform: isHovered ? "scale(1.8)" : "scale(1)", // Add zoom effect
-              ...zoomStyle,
-            }}
-            className="detail-img zoom-effect"
-            src={
-              process.env.REACT_APP_API_URL +
-              productDetail?.productDetails?.product_images[currentImage]?.image
-            }
-            alt=""
-          />
+          {productDetail?.productDetails?.product_images[currentImage]
+            ?.image ? (
+            <img
+              style={{
+                height: "100%",
+                width: "100%",
+                opacity: opacity,
+                transition: "opacity 0.9s ease-in-out",
+                transform: isHovered ? "scale(1.8)" : "scale(1)", // Add zoom effect
+                ...zoomStyle,
+              }}
+              className="detail-img zoom-effect"
+              src={
+                process.env.REACT_APP_API_URL +
+                productDetail?.productDetails?.product_images[currentImage]
+                  ?.image
+              }
+              alt=""
+            />
+          ) : (
+            <img
+              style={{
+                height: "100%",
+                width: "100%",
+              }}
+              className="detail-img"
+              src={
+                process.env.REACT_APP_API_URL +
+                "public/admin/assets/images/products/product.png"
+              }
+              alt=""
+            />
+          )}
         </div>
         <div className="product-detail-info">
           <div>
