@@ -149,7 +149,6 @@ export default function Home() {
         return;
       }
 
-      console.log(response.data);
       return response.data;
     } catch (error) {
       if (error.message == "Network Error") {

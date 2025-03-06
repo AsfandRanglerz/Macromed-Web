@@ -87,6 +87,8 @@ function Compare() {
     return <LoadingComponent />;
   }
 
+  console.log(data);
+
   return (
     <>
       <div className="container-fluid px-3 px-md-4 px-xl-5 mx-auto my-5">
@@ -171,7 +173,7 @@ function Compare() {
                   </div>
                   <div className="py-3 field">
                     <p className="small text-center fw-medium p-0 m-0">
-                      {e.price?.toLocaleString("en-PK")}
+                      {e?.price ? e.price?.toLocaleString("en-PK") : "N/A"}
                     </p>
                   </div>
                   <div className="py-3 field">

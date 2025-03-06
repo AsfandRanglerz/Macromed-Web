@@ -50,10 +50,10 @@ function Cart() {
         "Total Price": variant.totalPrice,
         "Discounted Total Price":
           variant.totalPrice * (1 - product.discount / 100),
-        "Brand Discount": product.brandDiscount,
-        "Category Discount": product.categoryDiscount,
-        "Product Discount": product.productDiscount,
-        "Total Discount": product.discount,
+        "Brand Discount": product.brandDiscount + "%",
+        "Category Discount": product.categoryDiscount + "%",
+        "Product Discount": product.productDiscount + "%",
+        "Total Discount": product.discount + "%",
       }))
     );
 
