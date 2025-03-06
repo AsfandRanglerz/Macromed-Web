@@ -267,19 +267,30 @@ export default function Home() {
     }
   }, [productsData]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sortRef.current && !sortRef.current.contains(event.target)) {
-        setShowSort(false);
-      }
-    };
+  const sortButtonRef = useRef();
 
+  const handleSortClick = (event) => {
+    event.stopPropagation(); // Prevent the click event from propagating to the document
+    setShowSort((prev) => !prev);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      sortRef.current &&
+      !sortRef.current.contains(event.target) &&
+      !sortButtonRef.current.contains(event.target)
+    ) {
+      setShowSort(false);
+    }
+  };
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [sortRef]);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -419,18 +430,17 @@ export default function Home() {
                     Compare ({comapreCounter})
                   </p>
                   <p
-                    ref={sortRef}
-                    onClick={() => {
-                      setShowSort(!showSort);
-                    }}
+                    ref={sortButtonRef}
+                    onClick={handleSortClick}
                     className="mb-0 pb-0 text-grey small font-500 pointer white-space"
                   >
                     Sort <img src={sort} className="sort-icon" alt="" />
                   </p>
                   {showSort == true && (
                     <div
+                      style={{ zIndex: "98" }}
                       ref={sortRef}
-                      className="z-3 w-75 position-absolute sort-menu"
+                      className="w-75 position-absolute sort-menu"
                     >
                       <ul className="list-group shadow rounded-0 keyword-ul">
                         <li
