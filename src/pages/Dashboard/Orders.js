@@ -5,8 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Product1 from "../../assets/product1.png";
-import Action from "../../assets/action.png";
 import Orders1 from "../../assets/orders.png";
 import Clock from "../../assets/clock.png";
 import Delivered from "../../assets/delivered.png";
@@ -61,7 +59,7 @@ function Orders() {
             selling_price_per_unit_pkr: Number(item.price),
             remaining_quantity: Number(item.quantity),
             count: Number(item.quantity),
-            totalPrice: Number(item.discounted_price),
+            totalPrice: Number(item.price * item.quantity),
           },
         })
       );
