@@ -60,6 +60,16 @@ export default function Model({ show, handleClose, data }) {
             <div className="col-5 col-lg-3 text-end">
               <h6 className="text-grey mb-3">Shipped To:</h6>
               <p className="text-grey2 small">{data?.address}</p>
+              <p className="text-grey2 small fw-medium mb-1">
+                City: <span className="fw-normal">{data?.city}</span>
+              </p>
+              <p className="text-grey2 small fw-medium mb-1">
+                State: <span className="fw-normal">{data?.state}</span>
+              </p>
+              <p className="text-grey2 small fw-medium mb-1">
+                {" "}
+                Country: <span className="fw-normal">{data?.country}</span>
+              </p>
             </div>
           </div>
           <div className="row justify-content-between mt-4">
