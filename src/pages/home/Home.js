@@ -1565,46 +1565,50 @@ function SideBaar({
             {sideBaarData?.brands
               ?.sort((a, b) => a.name.localeCompare(b.name))
               .map((e, index) => {
-                return (
-                  <div className="d-flex justify-content-between gap-3 mb-1">
-                    <div
-                      key={`${e.name + "13af23j64sdfjkh" + index}`}
-                      className="d-flex flex-row justify-content-start gap-2 align-items-center"
-                    >
-                      <div className="d-flex align-items-center">
-                        <input
-                          type="checkbox"
-                          id={e.name}
-                          checked={filters.brand_id.includes(e.id)}
-                          onChange={(event) =>
-                            helper("brand_id", e.id, event.target.checked)
-                          }
-                          style={{ height: "1rem", width: "1rem" }}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="small pointer" htmlFor={e.name}>
-                          {e.name}
-                        </label>
-                      </div>
-                      <div className="text-lighter small-text font-400">
-                        {`(${e.count})`}
-                      </div>
-                    </div>
-                    {e?.discount_percentage && (
+                if (e?.count > 0) {
+                  return (
+                    <div className="d-flex justify-content-between gap-3 mb-1">
                       <div
-                        className={`rounded-pill px-2 text-white d-flex align-items-center ${
-                          e?.discount_percentage <= 74 && "blue-badge"
-                        }  ${
-                          e?.discount_percentage >= 75 && "purple-badge"
-                        } discount-badge`}
+                        key={`${e.name + "13af23j64sdfjkh" + index}`}
+                        className="d-flex flex-row justify-content-start gap-2 align-items-center"
                       >
-                        <p className="p-0 m-0">{e?.discount_percentage}% off</p>
+                        <div className="d-flex align-items-center">
+                          <input
+                            type="checkbox"
+                            id={e.name}
+                            checked={filters.brand_id.includes(e.id)}
+                            onChange={(event) =>
+                              helper("brand_id", e.id, event.target.checked)
+                            }
+                            style={{ height: "1rem", width: "1rem" }}
+                          />
+                        </div>
+
+                        <div>
+                          <label className="small pointer" htmlFor={e.name}>
+                            {e.name}
+                          </label>
+                        </div>
+                        <div className="text-lighter small-text font-400">
+                          {`(${e.count})`}
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
+                      {e?.discount_percentage && (
+                        <div
+                          className={`rounded-pill px-2 text-white d-flex align-items-center ${
+                            e?.discount_percentage <= 74 && "blue-badge"
+                          }  ${
+                            e?.discount_percentage >= 75 && "purple-badge"
+                          } discount-badge`}
+                        >
+                          <p className="p-0 m-0">
+                            {e?.discount_percentage}% off
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1670,32 +1674,38 @@ function SideBaar({
             {sideBaarData?.certifications
               ?.sort((a, b) => a.name.localeCompare(b.name))
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.name + "13aj64sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.name + "13aj64sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label className="small pointer" htmlFor={e.name}>
+                          {e.name}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.name}
+                          checked={filters.certification_id.includes(e.id)}
+                          onChange={(event) =>
+                            helper(
+                              "certification_id",
+                              e.id,
+                              event.target.checked
+                            )
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="small pointer" htmlFor={e.name}>
-                        {e.name}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.name}
-                        checked={filters.certification_id.includes(e.id)}
-                        onChange={(event) =>
-                          helper("certification_id", e.id, event.target.checked)
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1739,46 +1749,50 @@ function SideBaar({
             {sideBaarData?.categories
               ?.sort((a, b) => a.name.localeCompare(b.name))
               .map((e, index) => {
-                return (
-                  <div className="d-flex justify-content-between gap-3 mb-1">
-                    <div
-                      key={`${e.name + "13af23j64sdfjkh" + index}`}
-                      className="d-flex flex-row justify-content-start gap-2 align-items-center"
-                    >
-                      <div className="d-flex align-items-center">
-                        <input
-                          type="checkbox"
-                          checked={filters.category_id.includes(e.id)}
-                          id={e.name}
-                          onChange={(event) =>
-                            helper("category_id", e.id, event.target.checked)
-                          }
-                          style={{ height: "1rem", width: "1rem" }}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="small pointer" htmlFor={e.name}>
-                          {e.name}
-                        </label>
-                      </div>
-                      <div className="text-lighter small-text font-400">
-                        {`(${e.count})`}
-                      </div>
-                    </div>
-                    {e?.discount_percentage && (
+                if (e?.count > 0) {
+                  return (
+                    <div className="d-flex justify-content-between gap-3 mb-1">
                       <div
-                        className={`rounded-pill px-2 text-white d-flex align-items-center ${
-                          e?.discount_percentage <= 74 && "blue-badge"
-                        }  ${
-                          e?.discount_percentage >= 75 && "purple-badge"
-                        } discount-badge`}
+                        key={`${e.name + "13af23j64sdfjkh" + index}`}
+                        className="d-flex flex-row justify-content-start gap-2 align-items-center"
                       >
-                        <p className="p-0 m-0">{e?.discount_percentage}% off</p>
+                        <div className="d-flex align-items-center">
+                          <input
+                            type="checkbox"
+                            checked={filters.category_id.includes(e.id)}
+                            id={e.name}
+                            onChange={(event) =>
+                              helper("category_id", e.id, event.target.checked)
+                            }
+                            style={{ height: "1rem", width: "1rem" }}
+                          />
+                        </div>
+
+                        <div>
+                          <label className="small pointer" htmlFor={e.name}>
+                            {e.name}
+                          </label>
+                        </div>
+                        <div className="text-lighter small-text font-400">
+                          {`(${e.count})`}
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
+                      {e?.discount_percentage && (
+                        <div
+                          className={`rounded-pill px-2 text-white d-flex align-items-center ${
+                            e?.discount_percentage <= 74 && "blue-badge"
+                          }  ${
+                            e?.discount_percentage >= 75 && "purple-badge"
+                          } discount-badge`}
+                        >
+                          <p className="p-0 m-0">
+                            {e?.discount_percentage}% off
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1799,32 +1813,34 @@ function SideBaar({
             {sideBaarData?.companies
               ?.sort((a, b) => a.name.localeCompare(b.name))
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.name + "13aj6gd4sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.name + "13aj6gd4sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label className="small pointer" htmlFor={e.name}>
+                          {e.name}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.name}
+                          checked={filters.company.includes(e.name)}
+                          onChange={(event) =>
+                            helper("company", e.name, event.target.checked)
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="small pointer" htmlFor={e.name}>
-                        {e.name}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.name}
-                        checked={filters.company.includes(e.name)}
-                        onChange={(event) =>
-                          helper("company", e.name, event.target.checked)
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1845,36 +1861,43 @@ function SideBaar({
             {sideBaarData?.productClass
               ?.sort((a, b) => a.productClass.localeCompare(b.productClass))
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.productClass + "13aj6gd4sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.productClass + "13aj6gd4sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label
+                          className="small pointer"
+                          htmlFor={e.productClass}
+                        >
+                          {e.productClass}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.productClass}
+                          checked={filters.product_class.includes(
+                            e.productClass
+                          )}
+                          onChange={(event) =>
+                            helper(
+                              "product_class",
+                              e.productClass,
+                              event.target.checked
+                            )
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="small pointer" htmlFor={e.productClass}>
-                        {e.productClass}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.productClass}
-                        checked={filters.product_class.includes(e.productClass)}
-                        onChange={(event) =>
-                          helper(
-                            "product_class",
-                            e.productClass,
-                            event.target.checked
-                          )
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1897,38 +1920,43 @@ function SideBaar({
             {sideBaarData?.productUseStatus
               ?.sort((a, b) => a.numberOfUses.localeCompare(b.numberOfUses))
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.productUseStatus + "13aj6gd4sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.productUseStatus + "13aj6gd4sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label
+                          className="small pointer"
+                          htmlFor={e.numberOfUses}
+                        >
+                          {e.numberOfUses}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.numberOfUses}
+                          checked={filters.product_use_status.includes(
+                            e.numberOfUses
+                          )}
+                          onChange={(event) =>
+                            helper(
+                              "product_use_status",
+                              e.numberOfUses,
+                              event.target.checked
+                            )
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="small pointer" htmlFor={e.numberOfUses}>
-                        {e.numberOfUses}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.numberOfUses}
-                        checked={filters.product_use_status.includes(
-                          e.numberOfUses
-                        )}
-                        onChange={(event) =>
-                          helper(
-                            "product_use_status",
-                            e.numberOfUses,
-                            event.target.checked
-                          )
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -1953,41 +1981,43 @@ function SideBaar({
                 a.productCondition.localeCompare(b.productCondition)
               )
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.productCondition + "13aj6gd4sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.productCondition + "13aj6gd4sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label
+                          className="small pointer"
+                          htmlFor={e.productCondition}
+                        >
+                          {e.productCondition}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.productCondition}
+                          checked={filters.product_condition.includes(
+                            e.productCondition
+                          )}
+                          onChange={(event) =>
+                            helper(
+                              "product_condition",
+                              e.productCondition,
+                              event.target.checked
+                            )
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label
-                        className="small pointer"
-                        htmlFor={e.productCondition}
-                      >
-                        {e.productCondition}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.productCondition}
-                        checked={filters.product_condition.includes(
-                          e.productCondition
-                        )}
-                        onChange={(event) =>
-                          helper(
-                            "product_condition",
-                            e.productCondition,
-                            event.target.checked
-                          )
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
@@ -2012,41 +2042,43 @@ function SideBaar({
                 a?.warrantyPeriod?.localeCompare(b?.warrantyPeriod)
               )
               .map((e, index) => {
-                return (
-                  <div
-                    key={`${e.warrantyPeriod + "13aj6gd4sdfjkh" + index}`}
-                    className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
-                  >
-                    <div className="text-lighter small-text font-400">
-                      {`(${e.count})`}
+                if (e?.count > 0) {
+                  return (
+                    <div
+                      key={`${e.warrantyPeriod + "13aj6gd4sdfjkh" + index}`}
+                      className="d-flex flex-row-reverse justify-content-end gap-2 align-items-center"
+                    >
+                      <div className="text-lighter small-text font-400">
+                        {`(${e.count})`}
+                      </div>
+                      <div>
+                        <label
+                          className="small pointer"
+                          htmlFor={e.warrantyPeriod}
+                        >
+                          {e.warrantyPeriod}
+                        </label>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <input
+                          type="checkbox"
+                          id={e.warrantyPeriod}
+                          checked={filters.warranty_period.includes(
+                            e.warrantyPeriod
+                          )}
+                          onChange={(event) =>
+                            helper(
+                              "warranty_period",
+                              e.warrantyPeriod,
+                              event.target.checked
+                            )
+                          }
+                          style={{ height: "1rem", width: "1rem" }}
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label
-                        className="small pointer"
-                        htmlFor={e.warrantyPeriod}
-                      >
-                        {e.warrantyPeriod}
-                      </label>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <input
-                        type="checkbox"
-                        id={e.warrantyPeriod}
-                        checked={filters.warranty_period.includes(
-                          e.warrantyPeriod
-                        )}
-                        onChange={(event) =>
-                          helper(
-                            "warranty_period",
-                            e.warrantyPeriod,
-                            event.target.checked
-                          )
-                        }
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                    </div>
-                  </div>
-                );
+                  );
+                }
               })}
           </div>
         </SideBaarAccordion>
