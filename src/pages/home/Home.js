@@ -1551,7 +1551,9 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"BRAND"}
-          counter={sideBaarData?.brands?.length}
+          counter={
+            sideBaarData?.brands?.filter((item) => item.count > 0).length
+          }
           openAcc={filters.brand_id.length > 0}
         >
           <div
@@ -1657,7 +1659,10 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"CERTIFICATION"}
-          counter={sideBaarData?.certifications.length}
+          counter={
+            sideBaarData?.certifications?.filter((item) => item.count > 0)
+              .length
+          }
           openAcc={filters.certification_id.length > 0}
         >
           <div
@@ -1734,7 +1739,9 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"CATEGORY"}
-          counter={sideBaarData?.categories?.length}
+          counter={
+            sideBaarData?.categories?.filter((item) => item.count > 0).length
+          }
           openAcc={filters.category_id.length > 0}
         >
           <div
@@ -1798,7 +1805,9 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"COMPANY"}
-          counter={sideBaarData?.companies?.length}
+          counter={
+            sideBaarData?.companies?.filter((item) => item.count > 0).length
+          }
           openAcc={filters.company.length > 0}
         >
           <div
@@ -1846,7 +1855,9 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"PRODUCT CLASS"}
-          counter={sideBaarData?.productClass?.length}
+          counter={
+            sideBaarData?.productClass?.filter((item) => item.count > 0).length
+          }
           openAcc={filters.product_class.length > 0}
         >
           <div
@@ -1903,7 +1914,10 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"PRODUCT USE STATUS"}
-          counter={sideBaarData?.productUseStatus?.length}
+          counter={
+            sideBaarData?.productUseStatus?.filter((item) => item.count > 0)
+              .length
+          }
           openAcc={filters.product_use_status.length > 0}
         >
           <div
@@ -1962,7 +1976,10 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"PRODUCT CONDITION"}
-          counter={sideBaarData?.productCondition?.length}
+          counter={
+            sideBaarData?.productCondition?.filter((item) => item.count > 0)
+              .length
+          }
           openAcc={filters.product_condition.length > 0}
         >
           <div
@@ -2023,7 +2040,10 @@ function SideBaar({
         </SideBaarAccordion>
         <SideBaarAccordion
           heading={"WARRANTY PERIOD"}
-          counter={sideBaarData?.warrantyPeriod?.length}
+          counter={
+            sideBaarData?.warrantyPeriod?.filter((item) => item.count > 0)
+              .length
+          }
           openAcc={filters.warranty_period.length > 0}
         >
           <div
@@ -2122,8 +2142,10 @@ function SideBaarAccordion({ heading, children, counter = null, openAcc }) {
       >
         <p className="small font-500 mb-0">
           {heading}
-          {counter && (
+          {counter > 0 ? (
             <span className="text-lighter small font-400"> ({counter})</span>
+          ) : (
+            <span className="text-lighter small font-400"> (0)</span>
           )}
         </p>
         <span
