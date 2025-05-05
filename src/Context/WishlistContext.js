@@ -31,8 +31,26 @@ export const WishlistProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getWishListData();
-  }, []);
+    const fetchWishListData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}api/getWhishList/${userData?.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setData(res.data.data);
+      } catch (err) {
+        if (err.message === "Network Error") {
+          toast.error("Check your internet connection");
+        }
+      }
+    };
+
+    fetchWishListData();
+  }, [token, userData?.id]);
 
   return (
     <WishlistContext.Provider

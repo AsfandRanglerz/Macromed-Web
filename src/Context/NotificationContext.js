@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { toast, useToast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const NotificationContext = createContext();
 
@@ -28,7 +28,7 @@ export const NotificationProvider = ({ children }) => {
         setSeen(res?.data?.seen_notification);
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Check your internet connection");
         }
       });
@@ -46,25 +46,44 @@ export const NotificationProvider = ({ children }) => {
         }
       )
       .then((res) => {
-        if (res?.data?.message == "Notifications have been seen!") {
+        if (res?.data?.message === "Notifications have been seen!") {
           setSeen(0);
         }
       })
       .catch((err) => {
-        if (err.message == "Network Error") {
+        if (err.message === "Network Error") {
           toast.error("Check your internet connection");
         }
       });
   };
 
   useEffect(() => {
-    if (login == true) {
-      getNotification();
+    if (login === true) {
+      const fetchNotifications = async () => {
+        try {
+          const res = await axios.get(
+            `${process.env.REACT_APP_API_URL}api/getOrderNotification/${userData?.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setData(res?.data?.notifcation_message);
+          setSeen(res?.data?.seen_notification);
+        } catch (err) {
+          if (err.message === "Network Error") {
+            toast.error("Check your internet connection");
+          }
+        }
+      };
 
-      const interval = setInterval(getNotification, 20000);
+      fetchNotifications();
+
+      const interval = setInterval(fetchNotifications, 20000);
       return () => clearInterval(interval);
     }
-  }, []);
+  }, [login, token, userData?.id]);
 
   return (
     <NotificationContext.Provider
